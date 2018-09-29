@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -r tsconfig-paths/register -r ts-node/register src/**/*.spec.ts",
+    "test": "nyc mocha -r tsconfig-paths/register -r ts-node/register src/**/*.spec.ts",
     "watch": "mocha -r tsconfig-paths/register -r ts-node/register --watch src/**/*.spec.ts --watch-extensions ts"
   },
   "keywords": [],
@@ -17,6 +17,7 @@
     "chai": "^4.2.0",
     "mocha": "^5.2.0",
     "mocha-silent-reporter": "^1.0.0",
+    "nyc": "^13.0.1",
     "sinon": "^6.3.4",
     "ts-node": "^7.0.1",
     "tsconfig-paths": "^3.6.0",
@@ -28,5 +29,19 @@
     "awilix": "^3.0.9",
     "class-validator": "^0.9.1",
     "uuid": "^3.3.2"
+  },
+  "nyc": {
+    "extension": [
+      ".ts"
+    ],
+    "exclude": [
+      "**/*.d.ts",
+      "coverage",
+      "**/interface.ts"
+    ],
+    "reporter": [
+      "html"
+    ],
+    "all": true
   }
 }

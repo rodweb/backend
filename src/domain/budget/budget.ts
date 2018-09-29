@@ -14,6 +14,6 @@ export class Budget {
 
   public addAccount(account: Account) {
     this.accounts.push(account);
-    this.domainEvents.publish("budget/account-added", { id: account.Id, name });
+    this.domainEvents.publish("budget/account-added", { id: account.Id, name: account.Name });
   }
 }
