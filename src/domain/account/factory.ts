@@ -1,10 +1,9 @@
 import { v4 as uuid } from "uuid";
 
 import { DomainEvents } from "../domain-events";
+import { Account, IAccountFactory } from "./";
 
-import { Account } from "./";
-
-class AccountFactory {
+export class AccountFactory implements IAccountFactory {
 
   constructor(private domainEvents: DomainEvents) {}
 
@@ -14,7 +13,3 @@ class AccountFactory {
     return account;
   }
 }
-
-export {
-  AccountFactory,
-};

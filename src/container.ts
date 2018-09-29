@@ -12,7 +12,7 @@ const container = createContainer({
 container.register({
   accountFactory: asClass(AccountFactory, { lifetime: Lifetime.SCOPED }),
   addAccount: asClass(AddAccount, { lifetime: Lifetime.SCOPED }),
-  budgetRepository: asValue({ add: () => {}, load: () => {} }),
+  budgetRepository: asValue({ add: sinon.fake(), load: sinon.fake() }),
   domainEvents: asClass(DomainEvents, { lifetime: Lifetime.SCOPED }),
   uow: asValue({ done: () => Promise.resolve() }),
 });

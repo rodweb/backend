@@ -1,26 +1,22 @@
-import { Account } from "domain/account";
-import { Budget } from "domain/budget";
+import { IUnitOfWork } from "app/uow";
+import { Account, IAccountFactory } from "domain/account";
+import { Budget, IBudgetRepository } from "domain/budget";
 
 interface IAddAccountCommand {
   budgetId: string;
   accountName: string;
 }
 
-interface IUnitOfWork {
-  done: () => Promise<void>;
-}
-
-interface IBudgetRepository {
-  add: (account: Account) => Promise<void>;
-  load: (id: string) => Promise<Budget>;
-}
-
 class AddAccount {
-  constructor(private uow: IUnitOfWork, private budgetRepository: IBudgetRepository) {}
+  constructor(
+    private uow: IUnitOfWork,
+    private accountFactory: IAccountFactory,
+    private budgetRepository: IBudgetRepository) {}
 
   public async execute(command: IAddAccountCommand) {
     const budget = await this.budgetRepository.load(command.budgetId);
-    const account = budget.addAccount(command.accountName);
+    const account = this.accountFactory.create(command.accountName);
+    budget.addAccount(account);
 
     await this.uow.done();
     return account;

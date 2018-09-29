@@ -1,4 +1,4 @@
-type DomainEvent = "account/created"
+type DomainEvent = "budget/account-added"
   | "account/updated";
 
 interface IEventPayload {
