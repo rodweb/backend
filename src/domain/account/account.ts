@@ -1,4 +1,4 @@
-import { DomainEvents } from "../domain-events";
+import { DomainEvents } from "domain/domain-events";
 
 class Account {
   get Id() {

@@ -1,6 +1,5 @@
 import awilix, { asValue } from "awilix";
 import { expect } from "chai";
-import "mocha";
 import * as sinon from "sinon";
 
 import { AddAccount } from "app/budget";
@@ -28,7 +27,7 @@ describe("Add account use case", () => {
       domainEvents = scope.resolve<DomainEvents>("domainEvents");
     });
 
-    it("should emit an budget/account-added event", async () => {
+    it("should emit a budget/account-added event", async () => {
       const cb = sinon.fake();
       domainEvents.subscribe("budget/account-added", cb);
 

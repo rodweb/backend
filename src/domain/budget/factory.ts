@@ -1,7 +1,7 @@
 import { v4 as uuid } from "uuid";
 
-import { DomainEvents } from "../domain-events";
-import { Budget } from "./";
+import { Budget } from "domain/budget";
+import { DomainEvents } from "domain/domain-events";
 
 export class BudgetFactory {
   constructor(private domainEvents: DomainEvents) {}

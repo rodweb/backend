@@ -1,7 +1,3 @@
-import { Account } from "domain/account";
-import { Budget } from "domain/budget";
-
-export {
-  Account,
-  Budget,
-};
+export * from "domain/account";
+export * from "domain/budget";
+export * from "./domain-events";
