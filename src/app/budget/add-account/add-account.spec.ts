@@ -7,7 +7,7 @@ import { AddAccount } from "app/budget";
 import { Account, AccountFactory } from "domain/account";
 import { DomainEvents } from "domain/domain-events";
 
-import container from "../../container";
+import container from "container";
 
 describe("Add account use case", () => {
   describe("when adding a new account", () => {

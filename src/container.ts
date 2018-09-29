@@ -1,9 +1,10 @@
 import { asClass, asFunction, asValue, createContainer, InjectionMode, Lifetime } from "awilix";
 import * as sinon from "sinon";
 
-import { AddAccount } from "./app/budget";
-import { AccountFactory } from "./domain/account";
-import { DomainEvents } from "./domain/domain-events";
+import { AddAccount } from "app/budget";
+import { AccountFactory } from "domain/account";
+import { BudgetFactory } from "domain/budget";
+import { DomainEvents } from "domain/domain-events";
 
 const container = createContainer({
   injectionMode: InjectionMode.CLASSIC,
@@ -12,6 +13,7 @@ const container = createContainer({
 container.register({
   accountFactory: asClass(AccountFactory, { lifetime: Lifetime.SCOPED }),
   addAccount: asClass(AddAccount, { lifetime: Lifetime.SCOPED }),
+  budgetFactory: asClass(BudgetFactory, { lifetime: Lifetime.SCOPED }),
   budgetRepository: asValue({ add: sinon.fake(), load: sinon.fake() }),
   domainEvents: asClass(DomainEvents, { lifetime: Lifetime.SCOPED }),
   uow: asValue({ done: () => Promise.resolve() }),

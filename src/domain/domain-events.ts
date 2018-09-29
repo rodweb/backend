@@ -1,5 +1,7 @@
-type DomainEvent = "budget/account-added"
-  | "account/updated";
+type DomainEvent = "noop"
+  | "account/updated"
+  | "budget/account-added"
+  | "budget/created";
 
 interface IEventPayload {
   id: string;

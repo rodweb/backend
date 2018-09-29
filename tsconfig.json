@@ -10,6 +10,7 @@
       "domain/*": [ "domain/*" ],
       "infra/*": [ "infra/*" ]
     },
-    "lib": ["es5", "es2015.promise", "DOM", "ScriptHost"]
+    "lib": ["es5", "es2015.promise", "DOM", "ScriptHost"],
+    "types": ["mocha"]
   }
 }

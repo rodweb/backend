@@ -2,10 +2,9 @@ import { expect } from "chai";
 import "mocha";
 import * as sinon from "sinon";
 
-import container from "../../container";
-import { DomainEvents } from "../domain-events";
-import { Account } from "./";
-import { AccountFactory } from "./factory";
+import container from "container";
+import { Account, AccountFactory } from "domain/account";
+import { DomainEvents } from "domain/domain-events";
 
 describe("Account domain", () => {
   let accountFactory: AccountFactory;

@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -r ts-node/register src/**/*.spec.ts",
-    "watch": "mocha -r ts-node/register --watch src/**/*.spec.ts --watch-extensions ts"
+    "test": "mocha -r tsconfig-paths/register -r ts-node/register src/**/*.spec.ts",
+    "watch": "mocha -r tsconfig-paths/register -r ts-node/register --watch src/**/*.spec.ts --watch-extensions ts"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,7 @@
     "mocha-silent-reporter": "^1.0.0",
     "sinon": "^6.3.4",
     "ts-node": "^7.0.1",
+    "tsconfig-paths": "^3.6.0",
     "tslint": "^5.11.0",
     "typescript": "^3.1.1"
   },
