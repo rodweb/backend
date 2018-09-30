@@ -1,4 +1,4 @@
 export interface IAddAccountCommand {
-  budgetId: string;
-  accountName: string;
+  budgetId: string
+  accountName: string
 }

@@ -1,29 +1,29 @@
-type DomainEvent = "noop"
-  | "account/updated"
-  | "budget/account-added"
-  | "budget/created";
+type DomainEvent =
+  | 'noop'
+  | 'account/updated'
+  | 'budget/account-added'
+  | 'budget/created'
+  | 'category/created'
+  | 'category/updated'
+  | 'payee/created'
+  | 'payee/updated'
 
-interface IEventPayload {
-  id: string;
+export interface IEventPayload {
+  id: string
 }
 
 // tslint:disable-next-line
-class DomainEvents {
-  private subscribers: {[event: string]: Array<(payload: any) => void>} = {};
+export class DomainEvents {
+  private subscribers: { [event: string]: Array<(payload: any) => void> } = {}
 
   public subscribe<T>(event: DomainEvent, callback: (payload: T) => void) {
     if (!this.subscribers[event]) {
-      this.subscribers[event] = [];
+      this.subscribers[event] = []
     }
-    this.subscribers[event].push(callback);
+    this.subscribers[event].push(callback)
   }
 
   public publish<T>(event: DomainEvent, payload: T) {
-    (this.subscribers[event] || []).forEach((cb) => cb(payload));
+    ;(this.subscribers[event] || []).forEach(cb => cb(payload))
   }
 }
-
-export {
-  IEventPayload,
-  DomainEvents,
-};

@@ -1,5 +1,5 @@
-import { Account } from "./";
+import { Account } from 'domain/account'
 
 export interface IAccountFactory {
-  create: (accountName: string) => Account;
+  create: (accountName: string) => Account
 }

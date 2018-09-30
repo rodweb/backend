@@ -1,21 +1,16 @@
-import { DomainEvents } from "domain/domain-events";
+import { DomainEvents } from 'domain/domain-events'
 
-class Account {
+export class Account {
   get Id() {
-    return this.id;
+    return this.id
   }
   get Name() {
-    return this.name;
+    return this.name
   }
-  constructor(private domainEvents: DomainEvents, private id: string, private name: string) {
-  }
+  constructor(private domainEvents: DomainEvents, private id: string, private name: string) {}
 
   public ChangeName(name: string) {
-    this.name = name;
-    this.domainEvents.publish("account/updated", { id: this.id, name });
+    this.name = name
+    this.domainEvents.publish('account/updated', { id: this.id, name })
   }
 }
-
-export {
-  Account,
-};

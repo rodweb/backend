@@ -1,16 +1,12 @@
-import { asClass, asFunction, asValue, createContainer, InjectionMode, Lifetime } from "awilix";
-import * as sinon from "sinon";
+import { asClass, asFunction, asValue, createContainer, InjectionMode, Lifetime } from 'awilix'
+import * as sinon from 'sinon'
 
-import { AddAccount } from "./app";
-import {
-  AccountFactory,
-  BudgetFactory,
-  DomainEvents,
-} from "./domain";
+import { AddAccount } from 'app'
+import { AccountFactory, BudgetFactory, DomainEvents } from './domain'
 
 const container = createContainer({
   injectionMode: InjectionMode.CLASSIC,
-});
+})
 
 // tslint:disable:object-literal-sort-keys
 container.register({
@@ -27,6 +23,6 @@ container.register({
 
   // Use Cases
   addAccount: asClass(AddAccount, { lifetime: Lifetime.SCOPED }),
-});
+})
 
-export default container;
+export default container

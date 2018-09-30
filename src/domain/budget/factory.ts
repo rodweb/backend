@@ -1,13 +1,13 @@
-import { v4 as uuid } from "uuid";
+import { v4 as uuid } from 'uuid'
 
-import { Budget } from "domain/budget";
-import { DomainEvents } from "domain/domain-events";
+import { Budget, IBudgetFactory } from 'domain/budget'
+import { DomainEvents } from 'domain/domain-events'
 
-export class BudgetFactory {
+export class BudgetFactory implements IBudgetFactory {
   constructor(private domainEvents: DomainEvents) {}
 
   public create() {
-    const budget = new Budget(this.domainEvents, uuid());
-    return budget;
+    const budget = new Budget(this.domainEvents, uuid())
+    return budget
   }
 }

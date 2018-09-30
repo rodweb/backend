@@ -1,7 +1,2 @@
-import { AddAccount } from "./add-account";
-import { IAddAccountCommand } from "./interface";
-
-export {
-  AddAccount,
-  IAddAccountCommand,
-};
+export * from './add-account'
+export * from './interface'

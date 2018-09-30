@@ -1,3 +1,3 @@
 export interface IUnitOfWork {
-  done: () => Promise<void>;
+  done: () => Promise<void>
 }
