@@ -22,6 +22,7 @@ describe('Container', () => {
     // Use Cases
     expect(container.cradle.addAccount).to.be.an.instanceof(AddAccount)
 
-    expect(registrations).to.have.lengthOf(8)
+    expect(registrations).to.have.lengthOf(9)
   })
 })
+

@@ -1,12 +1,11 @@
 {
-    "defaultSeverity": "error",
-    "extends": [
-        "tslint:latest",
-        "tslint-config-prettier"
-    ],
-    "jsRules": {},
-    "rules": {
-      "no-submodule-imports": [true, "app", "domain"]
-    },
-    "rulesDirectory": []
+  "defaultSeverity": "error",
+  "extends": ["tslint:latest", "tslint-config-prettier"],
+  "jsRules": {},
+  "rules": {
+    "no-submodule-imports": [true, "app", "domain"],
+    "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"]
+  },
+  "rulesDirectory": []
 }
+
