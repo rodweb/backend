@@ -5,7 +5,7 @@ import * as sinon from 'sinon'
 import { AddAccount } from 'app/budget'
 import { Account, AccountFactory } from 'domain/account'
 import { Budget, BudgetFactory } from 'domain/budget'
-import { DomainEvents } from 'domain/domain-events'
+import { IDomainEventEmitter } from 'domain/domain-events'
 
 import container from 'container'
 
@@ -13,7 +13,7 @@ describe('Add account use case', () => {
   describe('when adding a new account', () => {
     let scope: awilix.AwilixContainer
     let useCase: AddAccount
-    let domainEvents: DomainEvents
+    let domainEvents: IDomainEventEmitter
 
     beforeEach(() => {
       scope = container.createScope()
@@ -24,18 +24,20 @@ describe('Add account use case', () => {
         budgetRepository: asValue({ load: () => Promise.resolve(budget) }),
       })
       useCase = scope.resolve<AddAccount>('addAccount')
-      domainEvents = scope.resolve<DomainEvents>('domainEvents')
+      domainEvents = scope.resolve<IDomainEventEmitter>('domainEvents')
     })
 
     it('should emit a budget/account-added event', async () => {
       const cb = sinon.fake()
-      domainEvents.subscribe('budget/account-added', cb)
+      domainEvents.on('budget/account-added', cb)
 
       const budgetId = scope.resolve<string>('budgetId')
       const command = { budgetId, accountName: 'Bank' }
       const account = await useCase.execute(command)
 
-      expect(cb.lastCall.lastArg).to.has.property('id')
+      expect(cb.lastCall.lastArg).to.have.property('accountId')
+      expect(cb.lastCall.lastArg).to.have.property('accountName')
+      expect(cb.lastCall.lastArg).to.have.property('budgetId')
       expect(true).to.be.equal(true)
     })
 

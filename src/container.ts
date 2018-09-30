@@ -1,8 +1,9 @@
 import { asClass, asFunction, asValue, createContainer, InjectionMode, Lifetime } from 'awilix'
 import * as sinon from 'sinon'
+import { v4 as uuid } from 'uuid'
 
-import { AddAccount } from 'app'
-import { AccountFactory, BudgetFactory, DomainEvents } from './domain'
+import { AddAccount, CreateBudget } from 'app'
+import { AccountFactory, BudgetFactory, DomainEventEmitter } from './domain'
 
 const container = createContainer({
   injectionMode: InjectionMode.CLASSIC,
@@ -11,7 +12,8 @@ const container = createContainer({
 // tslint:disable:object-literal-sort-keys
 container.register({
   // Support
-  domainEvents: asClass(DomainEvents, { lifetime: Lifetime.SCOPED }),
+  uuid: asFunction(() => uuid, { lifetime: Lifetime.SINGLETON }),
+  domainEvents: asClass(DomainEventEmitter, { lifetime: Lifetime.SCOPED }),
   uow: asValue({ done: sinon.fake() }),
 
   // Factories
@@ -23,6 +25,7 @@ container.register({
 
   // Use Cases
   addAccount: asClass(AddAccount, { lifetime: Lifetime.SCOPED }),
+  createBudget: asClass(CreateBudget, { lifetime: Lifetime.SCOPED }),
 })
 
 export default container

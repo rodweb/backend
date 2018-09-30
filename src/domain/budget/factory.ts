@@ -1,13 +1,11 @@
-import { v4 as uuid } from 'uuid'
-
 import { Budget, IBudgetFactory } from 'domain/budget'
-import { DomainEvents } from 'domain/domain-events'
+import { IDomainEventEmitter } from 'domain/domain-events'
 
 export class BudgetFactory implements IBudgetFactory {
-  constructor(private domainEvents: DomainEvents) {}
+  constructor(private domainEvents: IDomainEventEmitter, private uuid: () => string) {}
 
   public create() {
-    const budget = new Budget(this.domainEvents, uuid())
+    const budget = new Budget(this.domainEvents, this.uuid())
     return budget
   }
 }

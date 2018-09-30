@@ -11,6 +11,9 @@ describe('Container', () => {
   it('should build everything correctly', () => {
     const registrations = Object.keys(container.registrations)
 
+    // Support
+    expect(container.cradle.uuid).to.be.a('function')
+
     // Factories
     expect(container.cradle.accountFactory).to.be.an.instanceof(AccountFactory)
     expect(container.cradle.budgetFactory).to.be.an.instanceof(BudgetFactory)
@@ -18,6 +21,6 @@ describe('Container', () => {
     // Use Cases
     expect(container.cradle.addAccount).to.be.an.instanceof(AddAccount)
 
-    expect(registrations).to.have.lengthOf(6)
+    expect(registrations).to.have.lengthOf(8)
   })
 })

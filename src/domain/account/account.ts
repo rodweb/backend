@@ -1,4 +1,4 @@
-import { DomainEvents } from 'domain/domain-events'
+import { IDomainEventEmitter } from 'domain/domain-events'
 
 export class Account {
   get Id() {
@@ -7,10 +7,13 @@ export class Account {
   get Name() {
     return this.name
   }
-  constructor(private domainEvents: DomainEvents, private id: string, private name: string) {}
+
+  constructor(private domainEvents: IDomainEventEmitter, private id: string, private name: string) {
+    this.domainEvents.emit('account/created', { id: this.id, name })
+  }
 
   public ChangeName(name: string) {
     this.name = name
-    this.domainEvents.publish('account/updated', { id: this.id, name })
+    this.domainEvents.emit('account/updated', { id: this.id, name })
   }
 }

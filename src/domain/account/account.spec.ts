@@ -3,16 +3,16 @@ import * as sinon from 'sinon'
 
 import container from 'container'
 import { Account, AccountFactory } from 'domain/account'
-import { DomainEvents } from 'domain/domain-events'
+import { IDomainEventEmitter } from 'domain/domain-events'
 
 describe('Account domain', () => {
   let accountFactory: AccountFactory
-  let domainEvents: DomainEvents
+  let domainEvents: IDomainEventEmitter
 
   beforeEach(() => {
     const scope = container.createScope()
     accountFactory = scope.resolve<AccountFactory>('accountFactory')
-    domainEvents = scope.resolve<DomainEvents>('domainEvents')
+    domainEvents = scope.resolve<IDomainEventEmitter>('domainEvents')
   })
 
   describe('when creating an account', () => {
@@ -23,6 +23,16 @@ describe('Account domain', () => {
 
       expect(account.Id).to.be.a('string')
       expect(account.Name).to.be.equal(accountName)
+    })
+
+    it('should emit an account/created event', () => {
+      const cb = sinon.fake()
+      domainEvents.on('account/created', cb)
+
+      const account = accountFactory.create(accountName)
+
+      expect(cb.callCount).to.be.equal(1)
+      expect(cb.lastCall.lastArg).to.have.property('id')
     })
   })
 
@@ -36,14 +46,14 @@ describe('Account domain', () => {
     })
 
     it('should emit an account/updated event', () => {
-      const accountUpdatedCallback = sinon.fake()
-      domainEvents.subscribe('account/updated', accountUpdatedCallback)
+      const cb = sinon.fake()
+      domainEvents.on('account/updated', cb)
 
       const account = accountFactory.create(oldName)
       account.ChangeName(newName)
 
-      expect(accountUpdatedCallback.callCount).to.be.equal(1)
-      expect(accountUpdatedCallback.lastCall.lastArg).to.has.property('id')
+      expect(cb.callCount).to.be.equal(1)
+      expect(cb.lastCall.lastArg).to.have.property('id')
     })
   })
 })

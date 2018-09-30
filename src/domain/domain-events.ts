@@ -1,29 +1,39 @@
-type DomainEvent =
-  | 'noop'
+import { IAccountCreated, IAccountNameChanged } from 'domain/account'
+import { IAccountAdded } from 'domain/budget'
+
+export interface IEventEmitter<T> {
+  on<K extends keyof T>(eventType: K, callback: (payload: T[K]) => void): void
+  emit<K extends keyof T>(eventType: K, payload: T[K]): void
+}
+
+type DomainEvents =
+  | 'account/created'
+  | 'account/name-changed'
   | 'account/updated'
   | 'budget/account-added'
   | 'budget/created'
-  | 'category/created'
-  | 'category/updated'
-  | 'payee/created'
-  | 'payee/updated'
 
-export interface IEventPayload {
-  id: string
+interface IDomainEvents {
+  'account/created': IAccountCreated
+  'account/name-changed': IAccountNameChanged
+  'account/updated': { id: string; name: string }
+  'budget/account-added': IAccountAdded
+  'budget/created': { id: string }
 }
 
-// tslint:disable-next-line
-export class DomainEvents {
-  private subscribers: { [event: string]: Array<(payload: any) => void> } = {}
+export interface IDomainEventEmitter extends IEventEmitter<IDomainEvents> {}
 
-  public subscribe<T>(event: DomainEvent, callback: (payload: T) => void) {
-    if (!this.subscribers[event]) {
-      this.subscribers[event] = []
+export class DomainEventEmitter implements IDomainEventEmitter {
+  private subscribers: { [eventType: string]: Array<(payload: any) => void> } = {}
+
+  public on<K extends DomainEvents>(eventType: K, callback: (payload: IDomainEvents[K]) => void) {
+    if (!this.subscribers[eventType]) {
+      this.subscribers[eventType] = []
     }
-    this.subscribers[event].push(callback)
+    this.subscribers[eventType].push(callback)
   }
 
-  public publish<T>(event: DomainEvent, payload: T) {
-    ;(this.subscribers[event] || []).forEach(cb => cb(payload))
+  public emit<K extends DomainEvents>(eventType: K, payload: IDomainEvents[K]) {
+    ;(this.subscribers[eventType] || []).forEach(cb => cb(payload))
   }
 }
