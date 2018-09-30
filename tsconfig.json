@@ -11,6 +11,7 @@
       "infra/*": ["infra/*"]
     },
     "lib": ["es2015", "es2015.promise"],
-    "types": ["mocha"]
+    "types": ["mocha"],
+    "outDir": "build"
   }
 }

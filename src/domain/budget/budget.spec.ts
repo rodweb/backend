@@ -2,10 +2,11 @@ import { asValue, AwilixContainer } from 'awilix'
 import { expect } from 'chai'
 import * as sinon from 'sinon'
 
-import container from 'container'
 import { Account, AccountFactory } from 'domain/account'
 import { Budget, BudgetFactory } from 'domain/budget'
 import { IDomainEventEmitter } from 'domain/domain-events'
+
+import container from 'test-container'
 
 describe('Budget domain', () => {
   let scope: AwilixContainer
@@ -15,7 +16,6 @@ describe('Budget domain', () => {
 
   beforeEach(() => {
     scope = container.createScope()
-    scope.register('uuid', asValue(() => 'uuid'))
     accountFactory = scope.resolve<AccountFactory>('accountFactory')
     budgetFactory = scope.resolve<BudgetFactory>('budgetFactory')
     domainEvents = scope.resolve<IDomainEventEmitter>('domainEvents')

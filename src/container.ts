@@ -10,7 +10,7 @@ const container = createContainer({
 })
 
 // tslint:disable:object-literal-sort-keys
-container.register({
+export const registrations = {
   // Support
   uuid: asFunction(() => uuid, { lifetime: Lifetime.SINGLETON }),
   domainEvents: asClass(DomainEventEmitter, { lifetime: Lifetime.SCOPED }),
@@ -26,6 +26,8 @@ container.register({
   // Use Cases
   addAccount: asClass(AddAccount, { lifetime: Lifetime.SCOPED }),
   createBudget: asClass(CreateBudget, { lifetime: Lifetime.SCOPED }),
-})
+}
+
+container.register(registrations)
 
 export default container

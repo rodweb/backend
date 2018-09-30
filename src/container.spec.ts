@@ -2,7 +2,7 @@ import awilix, { asValue } from 'awilix'
 import { expect } from 'chai'
 import * as sinon from 'sinon'
 
-import container from 'container'
+import container from './container'
 
 import { AddAccount } from './app'
 import { AccountFactory, BudgetFactory } from './domain'
@@ -13,6 +13,7 @@ describe('Container', () => {
 
     // Support
     expect(container.cradle.uuid).to.be.a('function')
+    expect(container.cradle.uuid()).to.be.a('string')
 
     // Factories
     expect(container.cradle.accountFactory).to.be.an.instanceof(AccountFactory)

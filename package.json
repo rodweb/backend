@@ -43,7 +43,10 @@
     "exclude": [
       "**/*.d.ts",
       "coverage",
-      "**/interface.ts"
+      "build",
+      "**/interface.ts",
+      "**/*.spec.ts",
+      "*.spec.ts"
     ],
     "reporter": [
       "html"
