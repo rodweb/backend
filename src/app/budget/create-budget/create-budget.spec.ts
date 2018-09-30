@@ -21,7 +21,7 @@ describe('Create budget use case', () => {
       const budget = await useCase.execute({})
 
       expect(cb.callCount).to.be.equal(1)
-      expect(cb.lastCall.lastArg).to.have.property('id')
+      expect(cb.lastCall.lastArg).to.be.deep.equal({ id: 'uuid' })
     })
   })
 })

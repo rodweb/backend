@@ -14,7 +14,7 @@ export class Budget {
     private id: string,
     private accounts: Account[] = [],
   ) {
-    this.domainEvents.emit('budget/created', { id })
+    this.domainEvents.emit('budget/created', { budgetId: id })
   }
 
   public addAccount(account: Account) {

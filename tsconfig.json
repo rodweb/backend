@@ -6,11 +6,11 @@
     "esModuleInterop": true,
     "baseUrl": "src",
     "paths": {
-      "app/*": [ "app/*" ],
-      "domain/*": [ "domain/*" ],
-      "infra/*": [ "infra/*" ]
+      "app/*": ["app/*"],
+      "domain/*": ["domain/*"],
+      "infra/*": ["infra/*"]
     },
-    "lib": ["es5", "es2015.promise", "DOM", "ScriptHost"],
+    "lib": ["es2015", "es2015.promise"],
     "types": ["mocha"]
   }
 }

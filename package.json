@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha -r tsconfig-paths/register -r ts-node/register src/**/*.spec.ts",
-    "watch": "mocha -r tsconfig-paths/register -r ts-node/register --watch src/**/*.spec.ts --watch-extensions ts",
+    "test": "nyc mocha -r tsconfig-paths/register -r ts-node/register src/**/*.spec.ts && nyc report --reporter=text-summary",
+    "watch": "run-p watch-ts watch-tests",
+    "watch-tests": "mocha -r tsconfig-paths/register -r ts-node/register --watch src/**/*.spec.ts --watch-extensions ts",
+    "watch-ts": "tsc -w",
     "lint": "tslint-config-prettier-check ./tslint.json"
   },
   "keywords": [],
@@ -13,11 +15,13 @@
   "license": "ISC",
   "devDependencies": {
     "@types/chai": "^4.1.6",
+    "@types/glob": "^7.1.1",
     "@types/mocha": "^5.2.5",
     "@types/uuid": "^3.4.4",
     "chai": "^4.2.0",
     "mocha": "^5.2.0",
     "mocha-silent-reporter": "^1.0.0",
+    "npm-run-all": "^4.1.3",
     "nyc": "^13.0.1",
     "sinon": "^6.3.4",
     "ts-node": "^7.0.1",

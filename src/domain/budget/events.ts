@@ -3,3 +3,7 @@ export interface IAccountAdded {
   accountId: string
   accountName: string
 }
+
+export interface IBudgetCreated {
+  budgetId: string
+}

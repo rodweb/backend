@@ -1,5 +1,5 @@
 import { IAccountCreated, IAccountNameChanged } from 'domain/account'
-import { IAccountAdded } from 'domain/budget'
+import { IAccountAdded, IBudgetCreated } from 'domain/budget'
 
 export interface IEventEmitter<T> {
   on<K extends keyof T>(eventType: K, callback: (payload: T[K]) => void): void
@@ -18,7 +18,7 @@ interface IDomainEvents {
   'account/name-changed': IAccountNameChanged
   'account/updated': { id: string; name: string }
   'budget/account-added': IAccountAdded
-  'budget/created': { id: string }
+  'budget/created': IBudgetCreated
 }
 
 export interface IDomainEventEmitter extends IEventEmitter<IDomainEvents> {}

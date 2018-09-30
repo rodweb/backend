@@ -1,3 +1,4 @@
+import { asValue, AwilixContainer } from 'awilix'
 import { expect } from 'chai'
 import * as sinon from 'sinon'
 
@@ -7,12 +8,14 @@ import { Budget, BudgetFactory } from 'domain/budget'
 import { IDomainEventEmitter } from 'domain/domain-events'
 
 describe('Budget domain', () => {
+  let scope: AwilixContainer
   let accountFactory: AccountFactory
   let budgetFactory: BudgetFactory
   let domainEvents: IDomainEventEmitter
 
   beforeEach(() => {
-    const scope = container.createScope()
+    scope = container.createScope()
+    scope.register('uuid', asValue(() => 'uuid'))
     accountFactory = scope.resolve<AccountFactory>('accountFactory')
     budgetFactory = scope.resolve<BudgetFactory>('budgetFactory')
     domainEvents = scope.resolve<IDomainEventEmitter>('domainEvents')
@@ -22,7 +25,7 @@ describe('Budget domain', () => {
     it('should display its public properties', () => {
       const account = budgetFactory.create()
 
-      expect(account.Id).to.be.a('string')
+      expect(account.Id).to.be.equal('uuid')
     })
 
     it('should emit a budget/created event', () => {
@@ -32,7 +35,7 @@ describe('Budget domain', () => {
       const budget = budgetFactory.create()
 
       expect(cb.callCount).to.be.equal(1)
-      expect(cb.lastCall.lastArg).to.have.property('id')
+      expect(cb.lastCall.lastArg).to.be.deep.equal({ budgetId: 'uuid' })
     })
   })
 
@@ -46,14 +49,18 @@ describe('Budget domain', () => {
       expect(budget.Accounts).to.have.lengthOf(1)
     })
 
-    it('should emit a budget/account-added event', () => {
+    it('should emit a budget/created event', () => {
       const cb = sinon.fake()
       domainEvents.on('budget/created', cb)
 
       const budget = budgetFactory.create()
 
       expect(cb.callCount).to.be.equal(1)
-      expect(cb.lastCall.lastArg).to.have.property('id')
+      expect(cb.lastCall.lastArg).to.be.deep.equal({ budgetId: 'uuid' })
     })
+  })
+
+  afterEach(async () => {
+    await scope.dispose()
   })
 })
