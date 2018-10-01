@@ -2,9 +2,9 @@ import awilix, { asValue } from 'awilix'
 import { expect } from 'chai'
 import * as sinon from 'sinon'
 
-import container from './container'
+import container from 'container'
 
-import { AddAccount } from './app'
+import { AddAccount, CreateBudget } from 'app'
 import { AccountFactory, BudgetFactory } from './domain'
 
 describe('Container', () => {
@@ -21,6 +21,7 @@ describe('Container', () => {
 
     // Use Cases
     expect(container.cradle.addAccount).to.be.an.instanceof(AddAccount)
+    expect(container.cradle.createBudget).to.be.an.instanceof(CreateBudget)
 
     expect(registrations).to.have.lengthOf(9)
   })

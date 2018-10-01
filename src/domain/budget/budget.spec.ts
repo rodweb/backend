@@ -25,7 +25,7 @@ describe('Budget domain', () => {
     it('should display its public properties', () => {
       const account = budgetFactory.create()
 
-      expect(account.Id).to.be.equal('uuid')
+      expect(account.id).to.be.equal('uuid')
     })
 
     it('should emit a budget/created event', () => {
@@ -39,6 +39,18 @@ describe('Budget domain', () => {
     })
   })
 
+  describe('when reconstructing an existing budget', () => {
+    it('should display its public properties', () => {
+      const accountOne = accountFactory.create('one')
+      const accountTwo = accountFactory.create('two')
+
+      const budget = budgetFactory.restore({ id: 'uuid', accounts: [accountOne, accountTwo] })
+
+      expect(budget.accounts).to.have.lengthOf(2)
+      expect(budget.id).to.eql('uuid')
+    })
+  })
+
   describe('when adding an account', () => {
     it('should add to its public property', () => {
       const budget = budgetFactory.create()
@@ -46,7 +58,7 @@ describe('Budget domain', () => {
 
       budget.addAccount(account)
 
-      expect(budget.Accounts).to.have.lengthOf(1)
+      expect(budget.accounts).to.have.lengthOf(1)
     })
 
     it('should emit a budget/created event', () => {
@@ -64,3 +76,4 @@ describe('Budget domain', () => {
     await scope.dispose()
   })
 })
+

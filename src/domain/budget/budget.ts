@@ -2,19 +2,19 @@ import { Account, AccountFactory } from 'domain/account'
 import { IDomainEventEmitter } from 'domain/domain-events'
 
 export class Budget {
-  get Id() {
-    return this.id
+  get id() {
+    return this._id
   }
-  get Accounts() {
-    return this.accounts
+  get accounts() {
+    return this._accounts
   }
 
   constructor(
     private domainEvents: IDomainEventEmitter,
-    private id: string,
-    private accounts: Account[] = [],
+    private _id: string,
+    private _accounts: Account[] = [],
   ) {
-    this.domainEvents.emit('budget/created', { budgetId: id })
+    this.domainEvents.emit('budget/created', { budgetId: _id })
   }
 
   public addAccount(account: Account) {
@@ -26,3 +26,5 @@ export class Budget {
     })
   }
 }
+
+
