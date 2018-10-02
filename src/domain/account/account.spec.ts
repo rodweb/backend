@@ -21,8 +21,8 @@ describe('Account domain', () => {
     it('should display its public properties', () => {
       const account = accountFactory.create(accountName)
 
-      expect(account.Id).to.be.a('string')
-      expect(account.Name).to.be.equal(accountName)
+      expect(account.id).to.be.a('string')
+      expect(account.name).to.be.equal(accountName)
     })
 
     it('should emit an account/created event', () => {
@@ -42,7 +42,7 @@ describe('Account domain', () => {
     it('should change its property', () => {
       const account = accountFactory.create(oldName)
       account.ChangeName(newName)
-      expect(account.Name).to.be.equal(newName)
+      expect(account.name).to.be.equal(newName)
     })
 
     it('should emit an account/updated event', () => {
@@ -57,3 +57,4 @@ describe('Account domain', () => {
     })
   })
 })
+

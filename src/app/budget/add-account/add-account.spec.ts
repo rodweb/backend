@@ -20,7 +20,7 @@ describe('Add account use case', () => {
       const budgetFactory = scope.resolve<BudgetFactory>('budgetFactory')
       const budget = budgetFactory.create()
       scope.register({
-        budgetId: asValue(budget.Id),
+        budgetId: asValue(budget.id),
         budgetRepository: asValue({ load: () => Promise.resolve(budget) }),
       })
       useCase = scope.resolve<AddAccount>('addAccount')
@@ -46,3 +46,4 @@ describe('Add account use case', () => {
     })
   })
 })
+

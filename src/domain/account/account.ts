@@ -1,19 +1,23 @@
 import { IDomainEventEmitter } from 'domain/domain-events'
+import { Entity } from 'domain/entity'
 
-export class Account {
-  get Id() {
-    return this.id
-  }
-  get Name() {
-    return this.name
+export class Account extends Entity {
+  get name() {
+    return this._name
   }
 
-  constructor(private domainEvents: IDomainEventEmitter, private id: string, private name: string) {
-    this.domainEvents.emit('account/created', { id: this.id, name })
+  constructor(
+    protected domainEvents: IDomainEventEmitter,
+    protected _id: string,
+    private _name: string,
+  ) {
+    super(domainEvents, _id)
+    this.domainEvents.emit('account/created', { id: this._id, name: this._name })
   }
 
   public ChangeName(name: string) {
-    this.name = name
-    this.domainEvents.emit('account/updated', { id: this.id, name })
+    this._name = name
+    this.domainEvents.emit('account/updated', { id: this._id, name: this._name })
   }
 }
+

@@ -5,6 +5,6 @@ export abstract class Entity {
     return this._id
   }
 
-  constructor(private domainEvents: IDomainEventEmitter, private _id: string) {}
+  constructor(protected domainEvents: IDomainEventEmitter, protected _id: string) {}
 }
 
