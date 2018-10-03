@@ -1,5 +1,6 @@
 import { IAccountCreated, IAccountNameChanged } from 'domain/account'
 import { IAccountAdded, IBudgetCreated } from 'domain/budget'
+import { ITransactionAdded } from 'domain/transaction'
 
 export interface IEventEmitter<T> {
   on<K extends keyof T>(eventType: K, callback: (payload: T[K]) => void): void
@@ -12,6 +13,7 @@ type DomainEvents =
   | 'account/updated'
   | 'budget/account-added'
   | 'budget/created'
+  | 'transaction/added'
 
 interface IDomainEvents {
   'account/created': IAccountCreated
@@ -19,6 +21,7 @@ interface IDomainEvents {
   'account/updated': { id: string; name: string }
   'budget/account-added': IAccountAdded
   'budget/created': IBudgetCreated
+  'transaction/added': ITransactionAdded
 }
 
 export interface IDomainEventEmitter extends IEventEmitter<IDomainEvents> {}
@@ -37,3 +40,4 @@ export class DomainEventEmitter implements IDomainEventEmitter {
     ;(this.subscribers[eventType] || []).forEach(cb => cb(payload))
   }
 }
+

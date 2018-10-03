@@ -3,7 +3,13 @@ import * as sinon from 'sinon'
 import { v4 as uuid } from 'uuid'
 
 import { AddAccount, CreateBudget } from 'app'
-import { AccountFactory, BudgetFactory, CategoryFactory, DomainEventEmitter } from './domain'
+import {
+  AccountFactory,
+  BudgetFactory,
+  CategoryFactory,
+  DomainEventEmitter,
+  TransactionFactory,
+} from './domain'
 
 const container = createContainer({ injectionMode: InjectionMode.CLASSIC })
 
@@ -18,6 +24,7 @@ export const registrations = {
   accountFactory: asClass(AccountFactory, { lifetime: Lifetime.SCOPED }),
   budgetFactory: asClass(BudgetFactory, { lifetime: Lifetime.SCOPED }),
   categoryFactory: asClass(CategoryFactory, { lifetime: Lifetime.SCOPED }),
+  transactionFactory: asClass(TransactionFactory, { lifetime: Lifetime.SCOPED }),
 
   // Repositories
   budgetRepository: asValue({ add: sinon.fake(), load: sinon.fake() }),
