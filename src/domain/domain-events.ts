@@ -12,16 +12,18 @@ type DomainEvents =
   | 'account/name-changed'
   | 'account/updated'
   | 'budget/account-added'
+  | 'budget/transaction-added'
   | 'budget/created'
-  | 'transaction/added'
+  | 'transaction/created'
 
 interface IDomainEvents {
   'account/created': IAccountCreated
   'account/name-changed': IAccountNameChanged
   'account/updated': { id: string; name: string }
   'budget/account-added': IAccountAdded
+  'budget/transaction-added': ITransactionAdded
   'budget/created': IBudgetCreated
-  'transaction/added': ITransactionAdded
+  'transaction/created': ITransactionAdded
 }
 
 export interface IDomainEventEmitter extends IEventEmitter<IDomainEvents> {}

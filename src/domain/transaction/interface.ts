@@ -1,9 +1,12 @@
 import { Account } from 'domain/account'
+import { Category } from 'domain/category'
 import { Transaction } from 'domain/transaction'
 
 export interface ICreateTransactionFactoryArgs {
+  budgetId: string
   description: string
   amount: number
+  category: Category
   from?: Account
   to?: Account
 }

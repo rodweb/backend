@@ -5,7 +5,7 @@ import { Budget, IBudgetFactory, IBudgetRepository } from 'domain/budget'
 export class CreateBudget {
   constructor(
     private uow: IUnitOfWork,
-    private budgetFactory: IBudgetFactory,
+      private budgetFactory: IBudgetFactory,
     private budgetRepository: IBudgetRepository,
   ) {}
 

@@ -2,7 +2,7 @@ import { asClass, asFunction, asValue, createContainer, InjectionMode, Lifetime 
 import * as sinon from 'sinon'
 import { v4 as uuid } from 'uuid'
 
-import { AddAccount, CreateBudget } from 'app'
+import { AddAccount, AddTransaction, CreateBudget } from 'app'
 import {
   AccountFactory,
   BudgetFactory,
@@ -31,6 +31,7 @@ export const registrations = {
 
   // Use Cases
   addAccount: asClass(AddAccount, { lifetime: Lifetime.SCOPED }),
+  addTransaction: asClass(AddTransaction, { lifetime: Lifetime.SCOPED }),
   createBudget: asClass(CreateBudget, { lifetime: Lifetime.SCOPED }),
 }
 

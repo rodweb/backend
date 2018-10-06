@@ -6,8 +6,24 @@ import { ICreateTransactionFactoryArgs, ITransactionFactory, Transaction } from 
 export class TransactionFactory implements ITransactionFactory {
   constructor(private domainEvents: IDomainEventEmitter, private uuid: UUID) {}
 
-  public create({ description, amount, from, to }: ICreateTransactionFactoryArgs) {
-    return new Transaction(this.domainEvents, this.uuid(), description, amount, from, to)
+  public create({
+    budgetId,
+    category,
+    description,
+    amount,
+    from,
+    to,
+  }: ICreateTransactionFactoryArgs) {
+    return new Transaction({
+      amount,
+      budgetId,
+      category,
+      description,
+      domainEvents: this.domainEvents,
+      from,
+      id: this.uuid(),
+      to,
+    })
   }
 }
 
