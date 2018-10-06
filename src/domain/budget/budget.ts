@@ -2,7 +2,7 @@ import { Account, AccountFactory } from 'domain/account'
 import { Category } from 'domain/category'
 import { IDomainEventEmitter } from 'domain/domain-events'
 import { Entity } from 'domain/entity'
-import { Transaction } from 'domain/transaction'
+import { Transaction, TransactionType } from 'domain/transaction'
 
 // tslint:disable-next-line
 type Args = {
@@ -26,9 +26,9 @@ export class Budget extends Entity {
     return this._transactions
   }
 
-  private _accounts: Account[]
-  private _categories: Category[]
-  private _transactions: Transaction[]
+  private _accounts: Account[] = []
+  private _categories: Category[] = []
+  private _transactions: Transaction[] = []
 
   constructor(args: Args) {
     super(args.domainEvents, args.id)
@@ -48,10 +48,35 @@ export class Budget extends Entity {
   }
 
   public addTransaction(transaction: Transaction) {
+    const category = this.categories.find(cat => cat.id === transaction.category.id)
+    if (!category) {
+      throw Error('Category not found')
+    }
+
+    switch (transaction.type) {
+      case TransactionType.Credit: {
+        category.increaseBudget(transaction.amount)
+        break
+      }
+      case TransactionType.Debit: {
+        category.spendBudget(transaction.amount)
+        break
+      }
+    }
+
     this.transactions.push(transaction)
     this.domainEvents.emit('budget/transaction-added', {
       description: transaction.description,
       id: transaction.id,
+    })
+  }
+
+  public addCategory(category: Category) {
+    this._categories.push(category)
+    this.domainEvents.emit('budget/category-added', {
+      budgetId: this._id,
+      categoryId: category.id,
+      categoryName: category.name,
     })
   }
 }

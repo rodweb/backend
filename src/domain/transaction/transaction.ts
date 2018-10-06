@@ -11,8 +11,15 @@ type Args = {
   description: string
   category: Category
   amount: number
+  type: TransactionType
   from?: Account
   to?: Account
+}
+
+export const enum TransactionType {
+  Credit,
+  Debit,
+  Transfer,
 }
 
 export class Transaction extends Entity {
@@ -28,6 +35,9 @@ export class Transaction extends Entity {
   get amount() {
     return this._amount
   }
+  get type() {
+    return this._type
+  }
   get from() {
     return this._from
   }
@@ -38,9 +48,10 @@ export class Transaction extends Entity {
   private _budgetId: string
   private _description: string
   private _amount: number
-  private _category?: Category
+  private _category: Category
   private _from?: Account
   private _to?: Account
+  private _type: TransactionType
 
   constructor(args: Args) {
     super(args.domainEvents, args.id)
@@ -50,6 +61,7 @@ export class Transaction extends Entity {
     this._amount = args.amount
     this._from = args.from
     this._to = args.to
+    this._type = args.type
 
     this.domainEvents.emit('transaction/created', { id: this._id, description: this.description })
   }

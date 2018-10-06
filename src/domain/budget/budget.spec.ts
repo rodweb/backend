@@ -4,6 +4,7 @@ import * as sinon from 'sinon'
 
 import { Account, AccountFactory } from 'domain/account'
 import { Budget, BudgetFactory } from 'domain/budget'
+import { Category } from 'domain/category'
 import { IDomainEventEmitter } from 'domain/domain-events'
 
 import container from 'test-container'
@@ -70,6 +71,38 @@ describe('Budget domain', () => {
       expect(cb.callCount).to.be.equal(1)
       expect(cb.lastCall.lastArg).to.be.deep.equal({ budgetId: 'uuid' })
     })
+  })
+
+  describe('when adding a category', () => {
+    it('should add to its categories list', () => {
+      const budget = new Budget({ domainEvents, id: 'budget-id' })
+      const category = new Category({ domainEvents, id: 'category-id', name: 'Name' })
+
+      budget.addCategory(category)
+
+      expect(budget.categories).to.have.lengthOf(1)
+      expect(budget.categories[0].id).to.eql('category-id')
+    })
+
+    it('should emit a budget/category-added', () => {
+      const cb = sinon.fake()
+      const budget = new Budget({ domainEvents, id: 'budget-id' })
+      const category = new Category({ domainEvents, id: 'category-id', name: 'category name' })
+
+      domainEvents.on('budget/category-added', cb)
+      budget.addCategory(category)
+
+      expect(cb.callCount).to.eql(1)
+      expect(cb.lastCall.lastArg).to.be.deep.equal({
+        budgetId: 'budget-id',
+        categoryId: 'category-id',
+        categoryName: 'category name',
+      })
+    })
+  })
+
+  describe('when adding a transaction', () => {
+    it('should add to its transactions list', () => {})
   })
 
   afterEach(async () => {

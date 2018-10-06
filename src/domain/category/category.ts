@@ -13,6 +13,14 @@ const messages = {
   insuficientBudget: 'insuficient_budget',
 }
 
+type Args = {
+  domainEvents: IDomainEventEmitter
+  id: string
+  name: string
+  budgeted?: number
+  available?: number
+}
+
 export class Category extends Entity {
   get name() {
     return this._name
@@ -26,14 +34,15 @@ export class Category extends Entity {
     return this._available
   }
 
-  constructor(
-    domainEvents: IDomainEventEmitter,
-    _id: string,
-    private _name: string,
-    private _budgeted: number = 0,
-    private _available: number = 0,
-  ) {
-    super(domainEvents, _id)
+  private _name: string
+  private _budgeted: number
+  private _available: number
+
+  constructor(args: Args) {
+    super(args.domainEvents, args.id)
+    this._name = args.name
+    this._budgeted = args.budgeted || 0
+    this._available = args.available || 0
   }
 
   public increaseBudget(amount: number) {

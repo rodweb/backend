@@ -1,5 +1,5 @@
 import { IAccountCreated, IAccountNameChanged } from 'domain/account'
-import { IAccountAdded, IBudgetCreated } from 'domain/budget'
+import { IAccountAdded, IBudgetCreated, ICategoryAdded } from 'domain/budget'
 import { ITransactionAdded } from 'domain/transaction'
 
 export interface IEventEmitter<T> {
@@ -12,6 +12,7 @@ type DomainEvents =
   | 'account/name-changed'
   | 'account/updated'
   | 'budget/account-added'
+  | 'budget/category-added'
   | 'budget/transaction-added'
   | 'budget/created'
   | 'transaction/created'
@@ -21,6 +22,7 @@ interface IDomainEvents {
   'account/name-changed': IAccountNameChanged
   'account/updated': { id: string; name: string }
   'budget/account-added': IAccountAdded
+  'budget/category-added': ICategoryAdded
   'budget/transaction-added': ITransactionAdded
   'budget/created': IBudgetCreated
   'transaction/created': ITransactionAdded

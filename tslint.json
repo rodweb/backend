@@ -4,7 +4,8 @@
   "jsRules": {},
   "rules": {
     "no-submodule-imports": [true, "app", "domain"],
-    "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"]
+    "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"],
+    "interface-over-type-literal": false
   },
   "rulesDirectory": []
 }

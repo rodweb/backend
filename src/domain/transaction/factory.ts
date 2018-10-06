@@ -13,6 +13,7 @@ export class TransactionFactory implements ITransactionFactory {
     amount,
     from,
     to,
+    type,
   }: ICreateTransactionFactoryArgs) {
     return new Transaction({
       amount,
@@ -23,6 +24,7 @@ export class TransactionFactory implements ITransactionFactory {
       from,
       id: this.uuid(),
       to,
+      type,
     })
   }
 }

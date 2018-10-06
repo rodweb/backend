@@ -1,7 +1,7 @@
 import { IAddTransaction, IUnitOfWork } from 'app'
 import { Budget, IBudgetRepository } from 'domain/budget'
 import { Category } from 'domain/category'
-import { ITransactionFactory, Transaction } from 'domain/transaction'
+import { ITransactionFactory, Transaction, TransactionType } from 'domain/transaction'
 
 // tslint:disable-next-line
 type Args = {
@@ -9,6 +9,7 @@ type Args = {
   categoryId: string
   description: string
   amount: number
+  type: TransactionType
 }
 
 export class AddTransaction implements IAddTransaction {
@@ -18,7 +19,7 @@ export class AddTransaction implements IAddTransaction {
     private transactionFactory: ITransactionFactory,
   ) {}
 
-  public async execute({ budgetId, description, amount, categoryId }: Args) {
+  public async execute({ budgetId, description, amount, categoryId, type }: Args) {
     const budget = await this.budgetRepository.load(budgetId)
     const category = budget.categories.find(cat => cat.id === categoryId) as Category
 
@@ -27,6 +28,7 @@ export class AddTransaction implements IAddTransaction {
       budgetId,
       category,
       description,
+      type,
       // from,
       // to,
     })

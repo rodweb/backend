@@ -5,7 +5,12 @@ import * as sinon from 'sinon'
 import { Account, IAccountFactory } from 'domain/account'
 import { ICategoryFactory } from 'domain/category'
 import { IDomainEventEmitter } from 'domain/domain-events'
-import { ICreateTransactionFactoryArgs, ITransactionFactory, Transaction } from 'domain/transaction'
+import {
+  ICreateTransactionFactoryArgs,
+  ITransactionFactory,
+  Transaction,
+  TransactionType,
+} from 'domain/transaction'
 
 import container from 'test-container'
 
@@ -34,6 +39,7 @@ describe('Transaction domain', () => {
       description: 'New transaction',
       from: fromAccount,
       to: toAccount,
+      type: TransactionType.Credit,
     }
   })
 
